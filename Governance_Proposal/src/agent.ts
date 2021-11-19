@@ -1,9 +1,7 @@
 import BigNumber from 'bignumber.js'
 
 import {
-  BlockEvent,
   Finding,
-  HandleBlock,
   HandleTransaction,
   TransactionEvent,
   FindingSeverity,
@@ -12,23 +10,57 @@ import {
 
 let findingsCount = 0
 
-const handleTransaction: HandleTransaction = async (txEvent: TransactionEvent) => {
+const INSTADAPP_GOVERNANCE_ADDRESS = '0x0204Cd037B2ec03605CFdFe482D8e257C765fA1B'
+
+// An event emitted when a proposal has been canceled
+const PROPOSAL_CANCEL_SIGNATURE = 'ProposalCanceled(uint)'
+
+// An event emitted when a proposal has been queued
+const PROPOSAL_QUEUED_SIGNATURE = 'ProposalQueued(uint, uint)'
+
+// An event emitted when a proposal has been executed
+const PROPOSAL_EXECUTED_SIGNATURE = 'ProposalExecuted(uint)'
+
+export const events: any = {
+  QUEUE: PROPOSAL_QUEUED_SIGNATURE,
+  EXECUTE: PROPOSAL_EXECUTED_SIGNATURE,
+  CANCEL: PROPOSAL_CANCEL_SIGNATURE,
+}
+
+
+const handleTransaction: HandleTransaction = async (
+  txEvent: TransactionEvent
+) => {
   const findings: Finding[] = []
 
-  // limiting this agent to emit only 5 findings so that the alert feed is not spammed
-  if (findingsCount >= 5) return findings;
+  for (let event in events) {
+    const logs = txEvent.filterEvent(events[event], INSTADAPP_GOVERNANCE_ADDRESS)
 
-  // create finding if gas used is higher than threshold
-  const gasUsed = new BigNumber(txEvent.gasUsed)
-  if (gasUsed.isGreaterThan("1000000")) {
-    findings.push(Finding.fromObject({
-      name: "High Gas Used",
-      description: `Gas Used: ${gasUsed}`,
-      alertId: "FORTA-1",
-      severity: FindingSeverity.Medium,
-      type: FindingType.Suspicious
-    }))
-    findingsCount++
+    if (!logs.length) continue
+
+    if (!txEvent.status) {
+      findings.push(
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE PROPOSAL',
+          description: `Failed ${event} Proposal event is detected.`,
+          alertId: 'Instadapp-11',
+          protocol: 'Instadapp',
+          type: FindingType.Suspicious,
+          severity: FindingSeverity.High,
+        })
+      )
+    } else {
+      findings.push(
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE PROPOSAL',
+          description: `${event} Proposal Event is detected.`,
+          alertId: 'Instadapp-12',
+          protocol: 'Instadapp',
+          type: FindingType.Unknown,
+          severity: FindingSeverity.Info,
+        })
+      )
+    }
   }
 
   return findings
