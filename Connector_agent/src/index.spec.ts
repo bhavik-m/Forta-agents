@@ -90,26 +90,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([])
     })
 
-    it('should return empty finding in because of wrong address', async () => {
-      const topicHash: string = generateHash(ADDED_CONNECTOR)
 
-      const GovEvent = {
-        topics: [topicHash],
-        address: '0x02',
-      }
-
-      const anotherEvent = {
-        topics: [],
-        address: INSTADAPP_CONNECTOR_ADDRESS,
-      }
-      const txEvent = createTxEvent({
-        logs: [anotherEvent, GovEvent],
-      })
-
-      const findings = await handleTransaction(txEvent)
-
-      expect(findings).toStrictEqual([])
-    })
   })
 
   describe('Successed CONNECTOR Transactions', () => {
@@ -138,7 +119,7 @@ describe('Detect Instadapp Contract event Event', () => {
       ])
     })
 
-    it('should return Update Event finding', async () => {
+    it('should return Updated Event finding', async () => {
       const topicHash: string = generateHash(UPDATED_CONNECTOR)
 
       const GovEvent = {
@@ -163,7 +144,7 @@ describe('Detect Instadapp Contract event Event', () => {
       ])
     })
 
-    it('should return Remove Event finding', async () => {
+    it('should return Removed Event finding', async () => {
       const topicHash: string = generateHash(REMOVED_CONNECTOR)
 
       const GovEvent = {
@@ -216,8 +197,8 @@ describe('Detect Instadapp Contract event Event', () => {
       ])
     })
 
-    it('should return Failed Add CONNECTOR Event finding', async () => {
-      const topicHash: string = generateHash(ADDED_CONNECTOR)
+    it('should return Failed Updated CONNECTOR Event finding', async () => {
+      const topicHash: string = generateHash(UPDATED_CONNECTOR)
 
       const GovEvent = {
         topics: [topicHash],
@@ -233,7 +214,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
-          description: `Instadapp Failed ${TOPICS.ADDED} Connector event is detected.`,
+          description: `Instadapp Failed ${TOPICS.UPDATED} Connector event is detected.`,
           alertId: 'INSTADAPP-15',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
@@ -242,7 +223,7 @@ describe('Detect Instadapp Contract event Event', () => {
       ])
     })
 
-    it('should return Failed Remove Event finding', async () => {
+    it('should return Failed Removed Event finding', async () => {
       const topicHash: string = generateHash(REMOVED_CONNECTOR)
 
       const GovEvent = {

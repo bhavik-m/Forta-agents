@@ -46,71 +46,50 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
     handleTransaction = agent.handleTransaction
   })
 
-  // describe('Handle Transaction', () => {
-  //   it('should return empty finding', async () => {
-  //     const GovEvent = {
-  //       topics: [],
-  //       address: INSTADAPP_IMPLEMENTATION_ADDRESS,
-  //     }
-  //     const txEvent = createTxEvent({
-  //       logs: [GovEvent],
-  //     })
-  //     const findings = await handleTransaction(txEvent)
+  describe('Handle Transaction', () => {
+    it('should return empty finding', async () => {
+      const GovEvent = {
+        topics: [],
+        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
+      })
+      const findings = await handleTransaction(txEvent)
 
-  //     expect(findings).toStrictEqual([])
-  //   })
+      expect(findings).toStrictEqual([])
+    })
 
-  //   it('should return empty finding - wrong address', async () => {
-  //     const topicHash: string = generateHash(ADD_IMPLEMENTATION)
+    it('should return empty finding - wrong address', async () => {
+      const topicHash: string = generateHash(ADD_IMPLEMENTATION)
 
-  //     const GovEvent = {
-  //       topics: [topicHash],
-  //       address: '0x01',
-  //     }
-  //     const txEvent = createTxEvent({
-  //       logs: [GovEvent],
-  //     })
-  //     const findings = await handleTransaction(txEvent)
+      const GovEvent = {
+        topics: [topicHash],
+        address: '0x01',
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
+      })
+      const findings = await handleTransaction(txEvent)
 
-  //     expect(findings).toStrictEqual([])
-  //   })
+      expect(findings).toStrictEqual([])
+    })
 
-  //   it('should return empty finding - empty address', async () => {
-  //     const topicHash: string = generateHash(ADD_IMPLEMENTATION)
+    it('should return empty finding - empty address', async () => {
+      const topicHash: string = generateHash(ADD_IMPLEMENTATION)
 
-  //     const GovEvent = {
-  //       topics: [topicHash],
-  //       address: '',
-  //     }
-  //     const txEvent = createTxEvent({
-  //       logs: [GovEvent],
-  //     })
-  //     const findings = await handleTransaction(txEvent)
+      const GovEvent = {
+        topics: [topicHash],
+        address: '',
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
+      })
+      const findings = await handleTransaction(txEvent)
 
-  //     expect(findings).toStrictEqual([])
-  //   })
-
-  //   it('should return empty finding in because of wrong address', async () => {
-  //     const topicHash: string = generateHash(ADD_IMPLEMENTATION)
-
-  //     const GovEvent = {
-  //       topics: [topicHash],
-  //       address: '0x02',
-  //     }
-
-  //     const anotherEvent = {
-  //       topics: [],
-  //       address: INSTADAPP_IMPLEMENTATION_ADDRESS,
-  //     }
-  //     const txEvent = createTxEvent({
-  //       logs: [anotherEvent, GovEvent],
-  //     })
-
-  //     const findings = await handleTransaction(txEvent)
-
-  //     expect(findings).toStrictEqual([])
-  //   })
-  // })
+      expect(findings).toStrictEqual([])
+    })
+  })
 
   describe('Successed IMPLEMENTATION Transactions', () => {
     it('should return SETDEFAULT Event finding', async () => {
@@ -190,7 +169,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
   })
 
   describe('Failed Gov Transactions', () => {
-    it('should return Failed SetDefault Implementation Event finding', async () => {
+    it('should return Failed SETDEFAULT Implementation Event finding', async () => {
       const topicHash: string = generateHash(SETDEFAULT_IMPLEMENTATION)
 
       const GovEvent = {
@@ -216,7 +195,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       ])
     })
 
-    it('should return Failed Add Implementation Event finding', async () => {
+    it('should return Failed ADD Implementation Event finding', async () => {
       const topicHash: string = generateHash(ADD_IMPLEMENTATION)
 
       const GovEvent = {
@@ -242,7 +221,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       ])
     })
 
-    it('should return Failed Remove Event finding', async () => {
+    it('should return Failed REMOVE Event finding', async () => {
       const topicHash: string = generateHash(REMOVE_IMPLEMENTATION)
 
       const GovEvent = {

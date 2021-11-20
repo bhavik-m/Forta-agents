@@ -90,29 +90,6 @@ describe('Detect INSTADAPP Governance Event', () => {
       expect(findings).toStrictEqual([])
     })
 
-
-
-    it('should return empty finding in because of wrong address', async () => {
-      const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
-
-      const GovEvent = {
-        topics: [topicHash],
-        address: '0x02',
-      }
-
-      const anotherEvent = {
-        topics: [],
-        address: INSTADAPP_GOVERNANCE_ADDRESS,
-      }
-      const txEvent = createTxEvent({
-        logs: [anotherEvent, GovEvent],
-      })
-
-      const findings = await handleTransaction(txEvent)
-
-      expect(findings).toStrictEqual([])
-    })
-
     describe('Successed Gov Transactions', () => {
       it('should return QUEUE Event finding', async () => {
         const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
