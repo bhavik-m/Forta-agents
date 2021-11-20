@@ -131,7 +131,7 @@ describe('Detect INSTADAPP Governance Event', () => {
           Finding.fromObject({
             name: 'INSTADAPP GOVERNANCE EVENT',
             description: `INSTADAPP ${TOPICS.QUEUE} Proposal Event is detected.`,
-            alertId: 'NETHFORTA-13',
+            alertId: 'INSTADAPP-12',
             protocol: 'INSTADAPP',
             type: FindingType.Unknown,
             severity: FindingSeverity.Info,
@@ -156,7 +156,7 @@ describe('Detect INSTADAPP Governance Event', () => {
           Finding.fromObject({
             name: 'INSTADAPP GOVERNANCE EVENT',
             description: `INSTADAPP ${TOPICS.EXECUTE} Proposal Event is detected.`,
-            alertId: 'NETHFORTA-13',
+            alertId: 'INSTADAPP-12',
             protocol: 'INSTADAPP',
             type: FindingType.Unknown,
             severity: FindingSeverity.Info,
@@ -181,7 +181,7 @@ describe('Detect INSTADAPP Governance Event', () => {
           Finding.fromObject({
             name: 'INSTADAPP GOVERNANCE EVENT',
             description: `INSTADAPP ${TOPICS.CANCEL} Proposal Event is detected.`,
-            alertId: 'NETHFORTA-13',
+            alertId: 'INSTADAPP-12',
             protocol: 'INSTADAPP',
             type: FindingType.Unknown,
             severity: FindingSeverity.Info,
@@ -213,7 +213,7 @@ describe('Detect INSTADAPP Governance Event', () => {
           Finding.fromObject({
             name: 'INSTADAPP GOVERNANCE EVENT',
             description: `INSTADAPP Failed ${TOPICS.QUEUE} Proposal event is detected.`,
-            alertId: 'NETHFORTA-13',
+            alertId: 'INSTADAPP-11',
             protocol: 'INSTADAPP',
             type: FindingType.Suspicious,
             severity: FindingSeverity.High,
@@ -239,7 +239,7 @@ describe('Detect INSTADAPP Governance Event', () => {
           Finding.fromObject({
             name: 'INSTADAPP GOVERNANCE EVENT',
             description: `INSTADAPP Failed ${TOPICS.EXECUTE} Proposal event is detected.`,
-            alertId: 'NETHFORTA-13',
+            alertId: 'INSTADAPP-11',
             protocol: 'INSTADAPP',
             type: FindingType.Suspicious,
             severity: FindingSeverity.High,
@@ -265,7 +265,7 @@ describe('Detect INSTADAPP Governance Event', () => {
           Finding.fromObject({
             name: 'INSTADAPP GOVERNANCE EVENT',
             description: `INSTADAPP Failed ${TOPICS.CANCEL} Proposal event is detected.`,
-            alertId: 'NETHFORTA-13',
+            alertId: 'INSTADAPP-11',
             protocol: 'INSTADAPP',
             type: FindingType.Suspicious,
             severity: FindingSeverity.High,

@@ -32,8 +32,8 @@ const handleTransaction: HandleTransaction = async (
     } else {
       findings.push(
         Finding.fromObject({
-          name: 'INSTADAPP\ GOVERNANCE EVENT',
-          description: `INSTADAPP\ ${sig} Proposal Event is detected.`,
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP ${sig} Proposal Event is detected.`,
           alertId: 'INSTADAPP-12',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
