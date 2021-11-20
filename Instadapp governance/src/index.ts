@@ -23,7 +23,7 @@ const handleTransaction: HandleTransaction = async (
         Finding.fromObject({
           name: 'INSTADAPP GOVERNANCE EVENT',
           description: `INSTADAPP Failed ${sig} Proposal event is detected.`,
-          alertId: 'NETHFORTA-13',
+          alertId: 'INSTADAPP-11',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
@@ -34,7 +34,7 @@ const handleTransaction: HandleTransaction = async (
         Finding.fromObject({
           name: 'INSTADAPP\ GOVERNANCE EVENT',
           description: `INSTADAPP\ ${sig} Proposal Event is detected.`,
-          alertId: 'NETHFORTA-13',
+          alertId: 'INSTADAPP-12',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
