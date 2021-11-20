@@ -1,18 +1,5 @@
-## Detect COMPOUND Governance Transactions
+## Detect Instadapp Governance Transactions
 
-### Overview
-
-This agent detects transactions that include `COMPOUND` governance events. It checks events that match with any governance events which are listed below.
-Governance Event:
-- `CREATE` Proposal
-- `VOTE` Proposal
-- `QUEUE` Proposal
-- `EXECUTE` Proposal
-- `CANCEL` Proposal
-
-Agent reports two type of findings;
-1. Successed Transactions: Successful governance transactions
-2. Failed Transactions: Failed governance transactions
 
 ## Installation
 
