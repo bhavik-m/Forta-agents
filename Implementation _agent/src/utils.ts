@@ -24,8 +24,3 @@ export const Sigs: any = {
   REMOVE: REMOVE_IMPLEMENTATION,
 }
 
-export enum TOPICS {
-  SETDEFAULT = 'SETDEFAULT',
-  ADD = 'ADD',
-  REMOVE = 'REMOVE',
-}

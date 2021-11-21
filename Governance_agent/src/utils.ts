@@ -24,8 +24,3 @@ export const Sigs: any = {
   CANCEL: PROPOSAL_CANCEL_SIGNATURE,
 }
 
-export enum TOPICS {
-  QUEUE = 'QUEUE',
-  EXECUTE = 'EXECUTE',
-  CANCEL = 'CANCEL',
-}

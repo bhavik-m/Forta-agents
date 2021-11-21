@@ -14,13 +14,12 @@ import {
   PROPOSAL_QUEUED_SIGNATURE,
   PROPOSAL_EXECUTED_SIGNATURE,
   PROPOSAL_CANCEL_SIGNATURE,
-  TOPICS,
+  //  TOPICS,
   generateHash,
 } from './utils'
 
-describe('Detect INSTADAPP Governance Event', () => {
+describe('Detect Instadapp Governance Event', () => {
   let handleTransaction: HandleTransaction
-
   const createTxEvent = ({
     logs,
     addresses,
@@ -89,166 +88,164 @@ describe('Detect INSTADAPP Governance Event', () => {
 
       expect(findings).toStrictEqual([])
     })
+  })
 
-    describe('Successed Gov Transactions', () => {
-      it('should return QUEUE Event finding', async () => {
-        const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
+  describe('Successed Gov Transactions', () => {
+    it('should return QUEUE Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
 
-        const GovEvent = {
-          topics: [topicHash],
-          address: INSTADAPP_GOVERNANCE_ADDRESS,
-        }
-        const txEvent = createTxEvent({
-          logs: [GovEvent],
-        })
-
-        const findings = await handleTransaction(txEvent)
-
-        expect(findings).toStrictEqual([
-          Finding.fromObject({
-            name: 'INSTADAPP GOVERNANCE EVENT',
-            description: `INSTADAPP ${TOPICS.QUEUE} Proposal Event is detected.`,
-            alertId: 'INSTADAPP-12',
-            protocol: 'INSTADAPP',
-            type: FindingType.Unknown,
-            severity: FindingSeverity.Info,
-          }),
-        ])
+      const GovEvent = {
+        topics: [topicHash],
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
       })
 
-      it('should return EXECUTE Proposal Event finding', async () => {
-        const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
+      const findings = await handleTransaction(txEvent)
 
-        const GovEvent = {
-          topics: [topicHash],
-          address: INSTADAPP_GOVERNANCE_ADDRESS,
-        }
-        const txEvent = createTxEvent({
-          logs: [GovEvent],
-        })
-
-        const findings = await handleTransaction(txEvent)
-
-        expect(findings).toStrictEqual([
-          Finding.fromObject({
-            name: 'INSTADAPP GOVERNANCE EVENT',
-            description: `INSTADAPP ${TOPICS.EXECUTE} Proposal Event is detected.`,
-            alertId: 'INSTADAPP-12',
-            protocol: 'INSTADAPP',
-            type: FindingType.Unknown,
-            severity: FindingSeverity.Info,
-          }),
-        ])
-      })
-
-      it('should return CANCEL Proposal Event finding', async () => {
-        const topicHash: string = generateHash(PROPOSAL_CANCEL_SIGNATURE)
-
-        const GovEvent = {
-          topics: [topicHash],
-          address: INSTADAPP_GOVERNANCE_ADDRESS,
-        }
-        const txEvent = createTxEvent({
-          logs: [GovEvent],
-        })
-
-        const findings = await handleTransaction(txEvent)
-
-        expect(findings).toStrictEqual([
-          Finding.fromObject({
-            name: 'INSTADAPP GOVERNANCE EVENT',
-            description: `INSTADAPP ${TOPICS.CANCEL} Proposal Event is detected.`,
-            alertId: 'INSTADAPP-12',
-            protocol: 'INSTADAPP',
-            type: FindingType.Unknown,
-            severity: FindingSeverity.Info,
-          }),
-        ])
-      })
+      expect(findings).toStrictEqual([
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP QUEUE Proposal Event is detected.`,
+          alertId: 'INSTADAPP-12',
+          protocol: 'INSTADAPP',
+          type: FindingType.Unknown,
+          severity: FindingSeverity.Info,
+        }),
+      ])
     })
 
-    describe('Failed Gov Transactions', () => {
+    it('should return EXECUTE Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
 
-
-
-
-      it('should return Failed QUEUE Event finding', async () => {
-        const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
-
-        const GovEvent = {
-          topics: [topicHash],
-          address: INSTADAPP_GOVERNANCE_ADDRESS,
-        }
-        const txEvent = createTxEvent({
-          logs: [GovEvent],
-          status: false,
-        })
-
-        const findings = await handleTransaction(txEvent)
-
-        expect(findings).toStrictEqual([
-          Finding.fromObject({
-            name: 'INSTADAPP GOVERNANCE EVENT',
-            description: `INSTADAPP Failed ${TOPICS.QUEUE} Proposal event is detected.`,
-            alertId: 'INSTADAPP-11',
-            protocol: 'INSTADAPP',
-            type: FindingType.Suspicious,
-            severity: FindingSeverity.High,
-          }),
-        ])
+      const GovEvent = {
+        topics: [topicHash],
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
       })
 
-      it('should return Failed EXECUTE Proposal Event finding', async () => {
-        const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
+      const findings = await handleTransaction(txEvent)
 
-        const GovEvent = {
-          topics: [topicHash],
-          address: INSTADAPP_GOVERNANCE_ADDRESS,
-        }
-        const txEvent = createTxEvent({
-          logs: [GovEvent],
-          status: false,
-        })
+      expect(findings).toStrictEqual([
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP EXECUTE Proposal Event is detected.`,
+          alertId: 'INSTADAPP-12',
+          protocol: 'INSTADAPP',
+          type: FindingType.Unknown,
+          severity: FindingSeverity.Info,
+        }),
+      ])
+    })
 
-        const findings = await handleTransaction(txEvent)
+    it('should return CANCEL Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_CANCEL_SIGNATURE)
 
-        expect(findings).toStrictEqual([
-          Finding.fromObject({
-            name: 'INSTADAPP GOVERNANCE EVENT',
-            description: `INSTADAPP Failed ${TOPICS.EXECUTE} Proposal event is detected.`,
-            alertId: 'INSTADAPP-11',
-            protocol: 'INSTADAPP',
-            type: FindingType.Suspicious,
-            severity: FindingSeverity.High,
-          }),
-        ])
+      const GovEvent = {
+        topics: [topicHash],
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
       })
 
-      it('should return Failed CANCEL Proposal Event finding', async () => {
-        const topicHash: string = generateHash(PROPOSAL_CANCEL_SIGNATURE)
+      const findings = await handleTransaction(txEvent)
 
-        const GovEvent = {
-          topics: [topicHash],
-          address: INSTADAPP_GOVERNANCE_ADDRESS,
-        }
-        const txEvent = createTxEvent({
-          logs: [GovEvent],
-          status: false,
-        })
+      expect(findings).toStrictEqual([
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP CANCEL Proposal Event is detected.`,
+          alertId: 'INSTADAPP-12',
+          protocol: 'INSTADAPP',
+          type: FindingType.Unknown,
+          severity: FindingSeverity.Info,
+        }),
+      ])
+    })
+  })
 
-        const findings = await handleTransaction(txEvent)
+  describe('Failed Gov Transactions', () => {
 
-        expect(findings).toStrictEqual([
-          Finding.fromObject({
-            name: 'INSTADAPP GOVERNANCE EVENT',
-            description: `INSTADAPP Failed ${TOPICS.CANCEL} Proposal event is detected.`,
-            alertId: 'INSTADAPP-11',
-            protocol: 'INSTADAPP',
-            type: FindingType.Suspicious,
-            severity: FindingSeverity.High,
-          }),
-        ])
+    it('should return Failed QUEUE Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
+
+      const GovEvent = {
+        topics: [topicHash],
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
+        status: false,
       })
+
+      const findings = await handleTransaction(txEvent)
+
+      expect(findings).toStrictEqual([
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP Failed QUEUE Proposal event is detected.`,
+          alertId: 'INSTADAPP-11',
+          protocol: 'INSTADAPP',
+          type: FindingType.Suspicious,
+          severity: FindingSeverity.High,
+        }),
+      ])
+    })
+
+    it('should return Failed EXECUTE Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
+
+      const GovEvent = {
+        topics: [topicHash],
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
+        status: false,
+      })
+
+      const findings = await handleTransaction(txEvent)
+
+      expect(findings).toStrictEqual([
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP Failed EXECUTE Proposal event is detected.`,
+          alertId: 'INSTADAPP-11',
+          protocol: 'INSTADAPP',
+          type: FindingType.Suspicious,
+          severity: FindingSeverity.High,
+        }),
+      ])
+    })
+
+    it('should return Failed CANCEL Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_CANCEL_SIGNATURE)
+
+      const GovEvent = {
+        topics: [topicHash],
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
+      }
+      const txEvent = createTxEvent({
+        logs: [GovEvent],
+        status: false,
+      })
+
+      const findings = await handleTransaction(txEvent)
+
+      expect(findings).toStrictEqual([
+        Finding.fromObject({
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP Failed CANCEL Proposal event is detected.`,
+          alertId: 'INSTADAPP-11',
+          protocol: 'INSTADAPP',
+          type: FindingType.Suspicious,
+          severity: FindingSeverity.High,
+        }),
+      ])
     })
   })
 })
+

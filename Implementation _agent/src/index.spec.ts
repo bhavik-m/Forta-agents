@@ -14,11 +14,10 @@ import {
   SETDEFAULT_IMPLEMENTATION,
   ADD_IMPLEMENTATION,
   REMOVE_IMPLEMENTATION,
-  TOPICS,
   generateHash,
 } from './utils'
 
-describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
+describe('Detect Instadapp Implementation Contract Event', () => {
   let handleTransaction: HandleTransaction
 
   const createTxEvent = ({
@@ -108,7 +107,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP ${TOPICS.SETDEFAULT} Implementation Event is detected.`,
+          description: `INSTADAPP SETDEFAULT Implementation Event is detected.`,
           alertId: 'INSTADAPP-14',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
@@ -133,7 +132,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP ${TOPICS.ADD} Implementation Event is detected.`,
+          description: `INSTADAPP ADD Implementation Event is detected.`,
           alertId: 'INSTADAPP-14',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
@@ -158,7 +157,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP ${TOPICS.REMOVE} Implementation Event is detected.`,
+          description: `INSTADAPP REMOVE Implementation Event is detected.`,
           alertId: 'INSTADAPP-14',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
@@ -186,7 +185,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed ${TOPICS.SETDEFAULT} Implementation event is detected.`,
+          description: `INSTADAPP Failed SETDEFAULT Implementation event is detected.`,
           alertId: 'INSTADAPP-13',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
@@ -212,7 +211,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed ${TOPICS.ADD} Implementation event is detected.`,
+          description: `INSTADAPP Failed ADD Implementation event is detected.`,
           alertId: 'INSTADAPP-13',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
@@ -238,7 +237,7 @@ describe('Detect INSTADAPP IMPLEMENTATION Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed ${TOPICS.REMOVE} Implementation event is detected.`,
+          description: `INSTADAPP Failed REMOVE Implementation event is detected.`,
           alertId: 'INSTADAPP-13',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,

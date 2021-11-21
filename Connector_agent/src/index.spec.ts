@@ -18,7 +18,7 @@ import {
   generateHash,
 } from './utils'
 
-describe('Detect Instadapp Contract event Event', () => {
+describe('Detect Instadapp Connector Contract Event', () => {
   let handleTransaction: HandleTransaction
 
   const createTxEvent = ({
@@ -110,7 +110,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
-          description: `Instadapp ${TOPICS.ADDED} Connector Event is detected.`,
+          description: `Instadapp ADDED Connector Event is detected.`,
           alertId: 'INSTADAPP-16',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
@@ -135,7 +135,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
-          description: `Instadapp ${TOPICS.UPDATED} Connector Event is detected.`,
+          description: `Instadapp UPDATED Connector Event is detected.`,
           alertId: 'INSTADAPP-16',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
@@ -160,7 +160,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
-          description: `Instadapp ${TOPICS.REMOVED} Connector Event is detected.`,
+          description: `Instadapp REMOVED Connector Event is detected.`,
           alertId: 'INSTADAPP-16',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
@@ -188,7 +188,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
-          description: `Instadapp Failed ${TOPICS.ADDED} Connector event is detected.`,
+          description: `Instadapp Failed ADDED Connector event is detected.`,
           alertId: 'INSTADAPP-15',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
@@ -214,7 +214,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
-          description: `Instadapp Failed ${TOPICS.UPDATED} Connector event is detected.`,
+          description: `Instadapp Failed UPDATED Connector event is detected.`,
           alertId: 'INSTADAPP-15',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
@@ -240,7 +240,7 @@ describe('Detect Instadapp Contract event Event', () => {
       expect(findings).toStrictEqual([
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
-          description: `Instadapp Failed ${TOPICS.REMOVED} Connector event is detected.`,
+          description: `Instadapp Failed REMOVED Connector event is detected.`,
           alertId: 'INSTADAPP-15',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
