@@ -12,6 +12,8 @@ function provideHandleTransaction(amountThreshold) {
   return async function handleTransaction(txEvent) {
     const findings = [];
 
+    console.log(txEvent.from)
+
     // filter the transaction logs for INST Transfer events
     const InstTransferEvents = txEvent.filterLog(
       TRANSFER_EVENT,

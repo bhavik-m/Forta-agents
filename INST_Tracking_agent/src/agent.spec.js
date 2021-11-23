@@ -37,12 +37,15 @@ describe("large transfer event agent", () => {
 
   it("returns findings if there are large transfer events", async () => {
     const amount = new BigNumber("1001");
+    // console.log(amount);
     const formattedAmount = amount.toFixed(2);
+
     const mockInstTransferEvent = {
       args: {
         from: "0x123",
         to: "0xabc",
         value: amount.multipliedBy(10 ** INST_DECIMALS),
+
       },
     };
     mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
@@ -63,6 +66,30 @@ describe("large transfer event agent", () => {
         },
       }),
     ]);
+    expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
+    expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
+      TRANSFER_EVENT,
+      INST_ADDRESS
+    );
+  });
+  it("returns empty findings if there are transfer events less than threshold", async () => {
+    const amount = new BigNumber("999");
+    // console.log(amount);
+    const formattedAmount = amount.toFixed(2);
+
+    const mockInstTransferEvent = {
+      args: {
+        from: "0x123",
+        to: "0xabc",
+        value: amount.multipliedBy(10 ** INST_DECIMALS),
+
+      },
+    };
+    mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
+
+    const findings = await handleTransaction(mockTxEvent);
+
+    expect(findings).toStrictEqual([]);
     expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
     expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
       TRANSFER_EVENT,
