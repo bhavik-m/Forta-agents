@@ -23,17 +23,10 @@ function provideHandleTransaction(amountThreshold) {
     // fire alerts for transfers of large amounts
     InstTransferEvents.forEach((InstTransfer) => {
       // shift decimal places of transfer amount
-      console.log(InstTransfer.value)
-      // console.log("hello");
+
       const amount = new BigNumber(
         InstTransfer.args.value.toString()
       ).dividedBy(10 ** INST_DECIMALS)
-
-
-      // const test = new BigNumber(
-      //   InstTransfer.args.value.toString()
-      // ).dividedBy(10 ** INST_DECIMALS)
-      // console.log(test.toFixed(10));
 
       if (amount.isLessThan(amountThreshold)) return;
 
