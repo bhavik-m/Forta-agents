@@ -167,7 +167,7 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     })
   })
 
-  describe('Failed Gov Transactions', () => {
+  describe('Failed implementation Transactions', () => {
     it('should return Failed SETDEFAULT Implementation Event finding', async () => {
       const topicHash: string = generateHash(SETDEFAULT_IMPLEMENTATION)
 
