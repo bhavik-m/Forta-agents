@@ -30,7 +30,7 @@ function provideHandleTransaction(amountThreshold) {
 
     const from_account_id = from_account.toNumber();
     const to_account_id = to_account.toNumber();
-    // console.log(num)
+
 
     if (from_account_id == 0 && to_account_id == 0) {
       return findings;
@@ -42,7 +42,7 @@ function provideHandleTransaction(amountThreshold) {
         tokens[token].address
       );
 
-      // for (var tokenTransfer of tokenTransferEvents) {
+
 
       tokenTransferEvents.forEach((tokenTransfer) => {
 
