@@ -2,9 +2,9 @@ const BigNumber = require("bignumber.js");
 const { Finding, FindingSeverity, FindingType } = require("forta-agent");
 const { provideHandleTransaction } = require("./agent");
 const {
-    INST_ADDRESS,
+    DAI_ADDRESS,
     TRANSFER_EVENT,
-    INST_DECIMALS,
+    DAI_DECIMALS,
 } = require("./constants");
 
 describe("large transfer event agent", () => {
@@ -31,7 +31,7 @@ describe("large transfer event agent", () => {
         expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
         expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
             TRANSFER_EVENT,
-            INST_ADDRESS
+            DAI_ADDRESS
         );
     });
 
@@ -42,7 +42,7 @@ describe("large transfer event agent", () => {
             args: {
                 from: "0x123",
                 to: "0xabc",
-                value: amount.multipliedBy(10 ** INST_DECIMALS),
+                value: amount.multipliedBy(10 ** DAI_DECIMALS),
             },
         };
         mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
@@ -51,9 +51,9 @@ describe("large transfer event agent", () => {
 
         expect(findings).toStrictEqual([
             Finding.fromObject({
-                name: "Large INST Transfer",
-                description: `${formattedAmount} INST transferred`,
-                alertId: "INST-31",
+                name: "Large DAI Transfer",
+                description: `${formattedAmount} DAI transferred`,
+                alertId: "DAI-31",
                 severity: FindingSeverity.Info,
                 type: FindingType.Info,
                 metadata: {
@@ -66,7 +66,7 @@ describe("large transfer event agent", () => {
         expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
         expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
             TRANSFER_EVENT,
-            INST_ADDRESS
+            DAI_ADDRESS
         );
     });
 });

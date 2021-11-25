@@ -26,4 +26,6 @@ var tokens = [
 module.exports = {
   tokens,
   TRANSFER_EVENT,
+  DAI_ADDRESS,
+  DAI_DECIMALS
 };
