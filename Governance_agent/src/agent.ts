@@ -18,6 +18,7 @@ const handleTransaction: HandleTransaction = async (
 
     if (!logs.length) continue
 
+    console.log(Sigs[sig]);
     if (!txEvent.status) {
       findings.push(
         Finding.fromObject({

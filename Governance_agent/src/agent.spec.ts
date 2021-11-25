@@ -8,18 +8,18 @@ import {
   HandleTransaction,
 } from 'forta-agent'
 
-import agent from '.'
+import agent from './agent'
 import {
-  INSTADAPP_IMPLEMENTATION_ADDRESS,
-  SETDEFAULT_IMPLEMENTATION,
-  ADD_IMPLEMENTATION,
-  REMOVE_IMPLEMENTATION,
+  INSTADAPP_GOVERNANCE_ADDRESS,
+  PROPOSAL_QUEUED_SIGNATURE,
+  PROPOSAL_EXECUTED_SIGNATURE,
+  PROPOSAL_CANCEL_SIGNATURE,
+  //  TOPICS,
   generateHash,
 } from './utils'
 
-describe('Detect Instadapp Implementation Contract Event', () => {
+describe('Detect Instadapp Governance Event', () => {
   let handleTransaction: HandleTransaction
-
   const createTxEvent = ({
     logs,
     addresses,
@@ -49,7 +49,7 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     it('should return empty finding', async () => {
       const GovEvent = {
         topics: [],
-        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
       }
       const txEvent = createTxEvent({
         logs: [GovEvent],
@@ -60,7 +60,7 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     })
 
     it('should return empty finding - wrong address', async () => {
-      const topicHash: string = generateHash(ADD_IMPLEMENTATION)
+      const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
@@ -75,7 +75,7 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     })
 
     it('should return empty finding - empty address', async () => {
-      const topicHash: string = generateHash(ADD_IMPLEMENTATION)
+      const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
@@ -90,13 +90,13 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     })
   })
 
-  describe('Successed IMPLEMENTATION Transactions', () => {
-    it('should return SETDEFAULT Event finding', async () => {
-      const topicHash: string = generateHash(SETDEFAULT_IMPLEMENTATION)
+  describe('Successed Gov Transactions', () => {
+    it('should return QUEUE Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
-        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
       }
       const txEvent = createTxEvent({
         logs: [GovEvent],
@@ -106,9 +106,9 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP SETDEFAULT Implementation Event is detected.`,
-          alertId: 'INSTADAPP-14',
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP QUEUE Proposal Event is detected.`,
+          alertId: 'INSTADAPP-12',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
@@ -116,12 +116,12 @@ describe('Detect Instadapp Implementation Contract Event', () => {
       ])
     })
 
-    it('should return ADD Event finding', async () => {
-      const topicHash: string = generateHash(ADD_IMPLEMENTATION)
+    it('should return EXECUTE Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
-        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
       }
       const txEvent = createTxEvent({
         logs: [GovEvent],
@@ -131,9 +131,9 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP ADD Implementation Event is detected.`,
-          alertId: 'INSTADAPP-14',
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP EXECUTE Proposal Event is detected.`,
+          alertId: 'INSTADAPP-12',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
@@ -141,12 +141,12 @@ describe('Detect Instadapp Implementation Contract Event', () => {
       ])
     })
 
-    it('should return REMOVE Event finding', async () => {
-      const topicHash: string = generateHash(REMOVE_IMPLEMENTATION)
+    it('should return CANCEL Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_CANCEL_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
-        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
       }
       const txEvent = createTxEvent({
         logs: [GovEvent],
@@ -156,9 +156,9 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP REMOVE Implementation Event is detected.`,
-          alertId: 'INSTADAPP-14',
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP CANCEL Proposal Event is detected.`,
+          alertId: 'INSTADAPP-12',
           protocol: 'INSTADAPP',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
@@ -167,13 +167,14 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     })
   })
 
-  describe('Failed implementation Transactions', () => {
-    it('should return Failed SETDEFAULT Implementation Event finding', async () => {
-      const topicHash: string = generateHash(SETDEFAULT_IMPLEMENTATION)
+  describe('Failed Gov Transactions', () => {
+
+    it('should return Failed QUEUE Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
-        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
       }
       const txEvent = createTxEvent({
         logs: [GovEvent],
@@ -184,9 +185,9 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed SETDEFAULT Implementation event is detected.`,
-          alertId: 'INSTADAPP-13',
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP Failed QUEUE Proposal event is detected.`,
+          alertId: 'INSTADAPP-11',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
@@ -194,12 +195,12 @@ describe('Detect Instadapp Implementation Contract Event', () => {
       ])
     })
 
-    it('should return Failed ADD Implementation Event finding', async () => {
-      const topicHash: string = generateHash(ADD_IMPLEMENTATION)
+    it('should return Failed EXECUTE Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_EXECUTED_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
-        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
       }
       const txEvent = createTxEvent({
         logs: [GovEvent],
@@ -210,9 +211,9 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed ADD Implementation event is detected.`,
-          alertId: 'INSTADAPP-13',
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP Failed EXECUTE Proposal event is detected.`,
+          alertId: 'INSTADAPP-11',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
@@ -220,12 +221,12 @@ describe('Detect Instadapp Implementation Contract Event', () => {
       ])
     })
 
-    it('should return Failed REMOVE Event finding', async () => {
-      const topicHash: string = generateHash(REMOVE_IMPLEMENTATION)
+    it('should return Failed CANCEL Proposal Event finding', async () => {
+      const topicHash: string = generateHash(PROPOSAL_CANCEL_SIGNATURE)
 
       const GovEvent = {
         topics: [topicHash],
-        address: INSTADAPP_IMPLEMENTATION_ADDRESS,
+        address: INSTADAPP_GOVERNANCE_ADDRESS,
       }
       const txEvent = createTxEvent({
         logs: [GovEvent],
@@ -236,9 +237,9 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed REMOVE Implementation event is detected.`,
-          alertId: 'INSTADAPP-13',
+          name: 'INSTADAPP GOVERNANCE EVENT',
+          description: `INSTADAPP Failed CANCEL Proposal event is detected.`,
+          alertId: 'INSTADAPP-11',
           protocol: 'INSTADAPP',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
@@ -247,4 +248,3 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     })
   })
 })
-

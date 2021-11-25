@@ -14,8 +14,9 @@ const handleTransaction: HandleTransaction = async (
   const findings: Finding[] = []
 
   for (let sig in Sigs) {
+    // console.log(Sigs[sig]);
     const logs = txEvent.filterEvent(Sigs[sig], INSTADAPP_IMPLEMENTATION_ADDRESS)
-
+    // console.log(txEvent);
     if (!logs.length) continue
 
     if (!txEvent.status) {

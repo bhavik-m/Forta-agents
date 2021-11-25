@@ -4,13 +4,13 @@ export const INSTADAPP_IMPLEMENTATION_ADDRESS =
   '0xCBA828153d3a85b30B5b912e1f2daCac5816aE9D'
 
 export const SETDEFAULT_IMPLEMENTATION =
-  'LogSetDefaultImplementation(address, address)'
+  'LogSetDefaultImplementation(address,address)'
 
 export const ADD_IMPLEMENTATION =
-  'LogAddImplementation(address, bytes4[])'
+  'LogAddImplementation(address,bytes4[])'
 
 export const REMOVE_IMPLEMENTATION =
-  'LogRemoveImplementation(address, bytes4[])'
+  'LogRemoveImplementation(address,bytes4[])'
 
 
 export const generateHash = (signature: string): string => {

@@ -8,7 +8,7 @@ import {
   HandleTransaction,
 } from 'forta-agent'
 
-import agent from '.'
+import agent from './agent'
 import {
   INSTADAPP_CONNECTOR_ADDRESS,
   UPDATED_CONNECTOR,
@@ -250,4 +250,3 @@ describe('Detect Instadapp Connector Contract Event', () => {
     })
   })
 })
-

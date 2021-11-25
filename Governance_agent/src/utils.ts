@@ -5,13 +5,14 @@ export const INSTADAPP_GOVERNANCE_ADDRESS =
 
 
 // An event emitted when a proposal has been canceled
-export const PROPOSAL_CANCEL_SIGNATURE = 'ProposalCanceled(uint)'
+export const PROPOSAL_CANCEL_SIGNATURE = 'ProposalCanceled(uint256)'
 
 // An event emitted when a proposal has been queued
-export const PROPOSAL_QUEUED_SIGNATURE = 'ProposalQueued(uint,uint)'
+export const PROPOSAL_QUEUED_SIGNATURE = 'ProposalQueued(uint256,uint256)'
 
 // An event emitted when a proposal has been executed
-export const PROPOSAL_EXECUTED_SIGNATURE = 'ProposalExecuted(uint)'
+export const PROPOSAL_EXECUTED_SIGNATURE = 'ProposalExecuted(uint256)'
+
 
 export const generateHash = (signature: string): string => {
   const hash = keccak256(signature).toString('hex')
