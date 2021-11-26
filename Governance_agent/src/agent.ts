@@ -18,14 +18,14 @@ const handleTransaction: HandleTransaction = async (
 
     if (!logs.length) continue
 
-    console.log(Sigs[sig]);
+    // console.log(Sigs[sig]);
     if (!txEvent.status) {
       findings.push(
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP Failed ${sig} Proposal event is detected.`,
-          alertId: 'INSTADAPP-11',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp Failed ${sig} Proposal event is detected.`,
+          alertId: 'Instadapp-11',
+          protocol: 'Instadapp',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
         })
@@ -33,10 +33,10 @@ const handleTransaction: HandleTransaction = async (
     } else {
       findings.push(
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP ${sig} Proposal Event is detected.`,
-          alertId: 'INSTADAPP-12',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp ${sig} Proposal Event is detected.`,
+          alertId: 'Instadapp-12',
+          protocol: 'Instadapp',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
         })

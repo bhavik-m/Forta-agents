@@ -91,7 +91,7 @@ describe('Detect Instadapp Governance Event', () => {
   })
 
   describe('Successed Gov Transactions', () => {
-    it('should return QUEUE Event finding', async () => {
+    it('should return QUEUE Proposal Event finding', async () => {
       const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
 
       const GovEvent = {
@@ -106,10 +106,10 @@ describe('Detect Instadapp Governance Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP QUEUE Proposal Event is detected.`,
-          alertId: 'INSTADAPP-12',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp QUEUE Proposal Event is detected.`,
+          alertId: 'Instadapp-12',
+          protocol: 'Instadapp',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
         }),
@@ -131,10 +131,10 @@ describe('Detect Instadapp Governance Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP EXECUTE Proposal Event is detected.`,
-          alertId: 'INSTADAPP-12',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp EXECUTE Proposal Event is detected.`,
+          alertId: 'Instadapp-12',
+          protocol: 'Instadapp',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
         }),
@@ -156,10 +156,10 @@ describe('Detect Instadapp Governance Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP CANCEL Proposal Event is detected.`,
-          alertId: 'INSTADAPP-12',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp CANCEL Proposal Event is detected.`,
+          alertId: 'Instadapp-12',
+          protocol: 'Instadapp',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
         }),
@@ -169,7 +169,7 @@ describe('Detect Instadapp Governance Event', () => {
 
   describe('Failed Gov Transactions', () => {
 
-    it('should return Failed QUEUE Event finding', async () => {
+    it('should return Failed QUEUE Proposal Event finding', async () => {
       const topicHash: string = generateHash(PROPOSAL_QUEUED_SIGNATURE)
 
       const GovEvent = {
@@ -185,10 +185,10 @@ describe('Detect Instadapp Governance Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP Failed QUEUE Proposal event is detected.`,
-          alertId: 'INSTADAPP-11',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp Failed QUEUE Proposal event is detected.`,
+          alertId: 'Instadapp-11',
+          protocol: 'Instadapp',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
         }),
@@ -211,10 +211,10 @@ describe('Detect Instadapp Governance Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP Failed EXECUTE Proposal event is detected.`,
-          alertId: 'INSTADAPP-11',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp Failed EXECUTE Proposal event is detected.`,
+          alertId: 'Instadapp-11',
+          protocol: 'Instadapp',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
         }),
@@ -237,10 +237,10 @@ describe('Detect Instadapp Governance Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP GOVERNANCE EVENT',
-          description: `INSTADAPP Failed CANCEL Proposal event is detected.`,
-          alertId: 'INSTADAPP-11',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Governance Event',
+          description: `Instadapp Failed CANCEL Proposal event is detected.`,
+          alertId: 'Instadapp-11',
+          protocol: 'Instadapp',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
         }),

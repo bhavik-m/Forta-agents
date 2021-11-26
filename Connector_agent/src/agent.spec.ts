@@ -14,7 +14,6 @@ import {
   UPDATED_CONNECTOR,
   ADDED_CONNECTOR,
   REMOVED_CONNECTOR,
-  TOPICS,
   generateHash,
 } from './utils'
 
@@ -93,8 +92,8 @@ describe('Detect Instadapp Connector Contract Event', () => {
 
   })
 
-  describe('Successed CONNECTOR Transactions', () => {
-    it('should return Added Event finding', async () => {
+  describe('Successed Connector Transactions', () => {
+    it('should return Added Connector Event finding', async () => {
       const topicHash: string = generateHash(ADDED_CONNECTOR)
 
       const GovEvent = {
@@ -119,7 +118,7 @@ describe('Detect Instadapp Connector Contract Event', () => {
       ])
     })
 
-    it('should return Updated Event finding', async () => {
+    it('should return Updated Connector Event finding', async () => {
       const topicHash: string = generateHash(UPDATED_CONNECTOR)
 
       const GovEvent = {
@@ -144,7 +143,7 @@ describe('Detect Instadapp Connector Contract Event', () => {
       ])
     })
 
-    it('should return Removed Event finding', async () => {
+    it('should return Removed Connector Event finding', async () => {
       const topicHash: string = generateHash(REMOVED_CONNECTOR)
 
       const GovEvent = {
@@ -171,7 +170,7 @@ describe('Detect Instadapp Connector Contract Event', () => {
   })
 
   describe('Failed connector Transactions', () => {
-    it('should return Failed Added CONNECTOR Event finding', async () => {
+    it('should return Failed Added Connector Event finding', async () => {
       const topicHash: string = generateHash(ADDED_CONNECTOR)
 
       const GovEvent = {
@@ -197,7 +196,7 @@ describe('Detect Instadapp Connector Contract Event', () => {
       ])
     })
 
-    it('should return Failed Updated CONNECTOR Event finding', async () => {
+    it('should return Failed Updated Connector Event finding', async () => {
       const topicHash: string = generateHash(UPDATED_CONNECTOR)
 
       const GovEvent = {
@@ -223,7 +222,7 @@ describe('Detect Instadapp Connector Contract Event', () => {
       ])
     })
 
-    it('should return Failed Removed Event finding', async () => {
+    it('should return Failed Removed Connector Event finding', async () => {
       const topicHash: string = generateHash(REMOVED_CONNECTOR)
 
       const GovEvent = {

@@ -41,11 +41,7 @@ function provideHandleTransaction(amountThreshold) {
         TRANSFER_EVENT,
         tokens[token].address
       );
-
-
-
       tokenTransferEvents.forEach((tokenTransfer) => {
-
         const amount = new BigNumber(
           tokenTransfer.args.value.toString()
         ).dividedBy(10 ** (tokens[token].decimals))
