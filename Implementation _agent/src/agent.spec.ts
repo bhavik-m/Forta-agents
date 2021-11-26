@@ -90,7 +90,7 @@ describe('Detect Instadapp Implementation Contract Event', () => {
     })
   })
 
-  describe('Successed IMPLEMENTATION Transactions', () => {
+  describe('Successed Implementation Transactions', () => {
     it('should return SETDEFAULT Event finding', async () => {
       const topicHash: string = generateHash(SETDEFAULT_IMPLEMENTATION)
 
@@ -106,10 +106,10 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP SETDEFAULT Implementation Event is detected.`,
-          alertId: 'INSTADAPP-14',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Implementation EVENT',
+          description: `Instadapp SETDEFAULT Implementation Event is detected.`,
+          alertId: 'Instadapp-14',
+          protocol: 'Instadapp',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
         }),
@@ -131,10 +131,10 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP ADD Implementation Event is detected.`,
-          alertId: 'INSTADAPP-14',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Implementation EVENT',
+          description: `Instadapp ADD Implementation Event is detected.`,
+          alertId: 'Instadapp-14',
+          protocol: 'Instadapp',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
         }),
@@ -156,10 +156,10 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP REMOVE Implementation Event is detected.`,
-          alertId: 'INSTADAPP-14',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Implementation EVENT',
+          description: `Instadapp REMOVE Implementation Event is detected.`,
+          alertId: 'Instadapp-14',
+          protocol: 'Instadapp',
           type: FindingType.Unknown,
           severity: FindingSeverity.Info,
         }),
@@ -184,10 +184,10 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed SETDEFAULT Implementation event is detected.`,
-          alertId: 'INSTADAPP-13',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Implementation EVENT',
+          description: `Instadapp Failed SETDEFAULT Implementation event is detected.`,
+          alertId: 'Instadapp-13',
+          protocol: 'Instadapp',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
         }),
@@ -210,10 +210,10 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed ADD Implementation event is detected.`,
-          alertId: 'INSTADAPP-13',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Implementation EVENT',
+          description: `Instadapp Failed ADD Implementation event is detected.`,
+          alertId: 'Instadapp-13',
+          protocol: 'Instadapp',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
         }),
@@ -236,10 +236,10 @@ describe('Detect Instadapp Implementation Contract Event', () => {
 
       expect(findings).toStrictEqual([
         Finding.fromObject({
-          name: 'INSTADAPP IMPLEMENTATION EVENT',
-          description: `INSTADAPP Failed REMOVE Implementation event is detected.`,
-          alertId: 'INSTADAPP-13',
-          protocol: 'INSTADAPP',
+          name: 'Instadapp Implementation EVENT',
+          description: `Instadapp Failed REMOVE Implementation event is detected.`,
+          alertId: 'Instadapp-13',
+          protocol: 'Instadapp',
           type: FindingType.Suspicious,
           severity: FindingSeverity.High,
         }),
