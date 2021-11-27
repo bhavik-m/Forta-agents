@@ -6,6 +6,8 @@ const Web3 = require('web3');
 const { Finding, FindingSeverity, FindingType, getEthersProvider } = require("forta-agent");
 const {
   tokens,
+  DAI_ADDRESS,
+  DAI_DECIMALS,
   TRANSFER_EVENT,
 } = require("./constants");
 
@@ -22,26 +24,36 @@ const AMOUNT_THRESHOLD = "1";
 function provideHandleTransaction(amountThreshold) {
   return async function handleTransaction(txEvent) {
     const findings = [];
-    const from = txEvent.from;
-    const to = txEvent.to;
-    // console.log('from', from);
-    const from_account = await instaList.accountID(from)
-    const to_account = await instaList.accountID(to)
 
-    const from_account_id = from_account.toNumber();
-    const to_account_id = to_account.toNumber();
-
-
-    if (from_account_id == 0 && to_account_id == 0) {
-      return findings;
-    }
 
     for (let token in tokens) {
       const tokenTransferEvents = txEvent.filterLog(
         TRANSFER_EVENT,
         tokens[token].address
       );
-      tokenTransferEvents.forEach((tokenTransfer) => {
+
+      if (tokenTransferEvents.length == 0) {
+        continue;
+      }
+
+      for (const tokenTransfer of tokenTransferEvents) {
+
+        const to = tokenTransfer.args.to;
+        const from = tokenTransfer.args.from;
+
+        const from_account = await instaList.accountID(from)
+        const to_account = await instaList.accountID(to)
+
+        const from_account_id = from_account.toNumber();
+        const to_account_id = to_account.toNumber();
+        // console.log(from_account_id);
+
+
+        if (from_account_id == 0 && to_account_id == 0) {
+          continue;
+        }
+
+
         const amount = new BigNumber(
           tokenTransfer.args.value.toString()
         ).dividedBy(10 ** (tokens[token].decimals))
@@ -63,9 +75,7 @@ function provideHandleTransaction(amountThreshold) {
             },
           })
         );
-      })
-
-      // }
+      };
     }
 
     return findings;

@@ -18,8 +18,8 @@ function token(name, address, decimals) {
 }
 
 var tokens = [
-  new token("DAI", DAI_ADDRESS, DAI_DECIMALS),
-  new token("USDC", USDC_ADDRESS, USDC_DECIMALS)
+  new token("USDC", USDC_ADDRESS, USDC_DECIMALS),
+  new token("DAI", DAI_ADDRESS, DAI_DECIMALS)
 ]
 
 
@@ -27,5 +27,7 @@ module.exports = {
   tokens,
   TRANSFER_EVENT,
   DAI_ADDRESS,
-  DAI_DECIMALS
+  DAI_DECIMALS,
+  USDC_ADDRESS,
+  USDC_DECIMALS
 };

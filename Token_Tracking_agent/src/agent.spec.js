@@ -1,12 +1,13 @@
 const BigNumber = require("bignumber.js");
 const { Finding, FindingSeverity, FindingType } = require("forta-agent");
 const { provideHandleTransaction } = require("./agent");
-const { provideERC20TransferHandler } = require("forta-agent-tools");
-// console.log(provideERC20TransferHandler)
+
 const {
     DAI_ADDRESS,
     TRANSFER_EVENT,
     DAI_DECIMALS,
+    USDC_ADDRESS,
+    USDC_DECIMALS
 } = require("./constants");
 
 describe("large transfer event agent", () => {
@@ -24,52 +25,117 @@ describe("large transfer event agent", () => {
         mockTxEvent.filterLog.mockReset();
     });
 
+
+
     it("returns empty findings if there are no transfer events", async () => {
+
         mockTxEvent.filterLog.mockReturnValueOnce([]);
-        // console.log("check");
-        console.log(mockTxEvent.filterLog);
         const findings = await handleTransaction(mockTxEvent);
-        console.log("check2");
+        // console.log("findings", findings)
         expect(findings).toStrictEqual([]);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
+            TRANSFER_EVENT,
+            DAI_ADDRESS
+        );
+    });
+
+    it("returns empty findings if there are DAI large transfer events but no dsa address is involved ", async () => {
+        const amount = new BigNumber("1001");
+        const formattedAmount = amount.toFixed(2);
+        const mockInstTransferEvent = {
+            args: {
+                from: "0x80f36f504c63b7663cebcdecb2ae7620a1fcb6e1",
+                to: "0x6b175474e89094c44da98b954eedeac495271d0f",
+                value: amount.multipliedBy(10 ** DAI_DECIMALS),
+            },
+        };
+        mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
+
+        const findings = await handleTransaction(mockTxEvent);
+
+        expect(findings).toStrictEqual([]);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
+            TRANSFER_EVENT,
+            DAI_ADDRESS
+        );
+    });
+    it("returns empty findings if there are USDC large transfer events but no dsa address is involved ", async () => {
+        const amount = new BigNumber("1001");
+        const formattedAmount = amount.toFixed(2);
+        const mockInstTransferEvent = {
+            args: {
+                from: "0x80f36f504c63b7663cebcdecb2ae7620a1fcb6e1",
+                to: "0x6b175474e89094c44da98b954eedeac495271d0f",
+                value: amount.multipliedBy(10 ** USDC_DECIMALS),
+            },
+        };
+        mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
+
+        const findings = await handleTransaction(mockTxEvent);
+        console.log(USDC_ADDRESS);
+        expect(findings).toStrictEqual([]);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
+            TRANSFER_EVENT,
+            USDC_ADDRESS
+        );
+    });
+
+    it("returns findings if there are large transfer events involving dsa address", async () => {
+        // const amount = new BigNumber("1001");
+        // const formattedAmount = amount.toFixed(2);
+        // const mockInstTransferEvent = {
+        //     args: {
+        //         from: "0xf151ed2caedbda83c17ae39d6990d92909fcf529", //dsa address
+        //         to: "0x6b175474e89094c44da98b954eedeac495271d0f",
+        //         value: amount.multipliedBy(10 ** DAI_DECIMALS),
+        //     },
+        // };
+        // mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
+        // // console.log(mockTxEvent.filterLog.mockReturnValueOnce());
+        // const findings = await handleTransaction(mockTxEvent);
+
+        // // expect(findings).toStrictEqual([
+        // //     Finding.fromObject({
+        // //         name: "Large DAI Transfer",
+        // //         description: `${formattedAmount} DAI Transferred`,
+        // //         alertId: "INST-41",
+        // //         severity: FindingSeverity.Info,
+        // //         type: FindingType.Info,
+        // //         metadata: {
+        // //             from: mockInstTransferEvent.args.from,
+        // //             to: mockInstTransferEvent.args.to,
+        // //             amount: formattedAmount,
+        // //         },
+        // //     }),
+        // // ]);
         // expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
         // expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
         //     TRANSFER_EVENT,
         //     DAI_ADDRESS
         // );
+
+        const amount = new BigNumber("1001");
+        const formattedAmount = amount.toFixed(2);
+        const mockInstTransferEvent = {
+            args: {
+                from: "0xf151ed2caedbda83c17ae39d6990d92909fcf529", // dsa
+                to: "0x4f58985b75eec8f14c536878a19eadf4a1960d6c",
+                value: amount.multipliedBy(10 ** DAI_DECIMALS),
+            },
+        };
+        mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
+
+        const findings = await handleTransaction(mockTxEvent);
+
+        expect(findings).toStrictEqual([]);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
+            TRANSFER_EVENT,
+            DAI_ADDRESS
+        );
     });
 
-    // it("returns findings if there are large transfer events", async () => {
-    //     const amount = new BigNumber("1001");
-    //     const formattedAmount = amount.toFixed(2);
-    //     const mockInstTransferEvent = {
-    //         args: {
-    //             from: "0x123",
-    //             to: "0xabc",
-    //             value: amount.multipliedBy(10 ** DAI_DECIMALS),
-    //         },
-    //     };
-    //     mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);
-
-    //     const findings = await handleTransaction(mockTxEvent);
-
-    //     expect(findings).toStrictEqual([
-    //         Finding.fromObject({
-    //             name: "Large DAI Transfer",
-    //             description: `${formattedAmount} DAI transferred`,
-    //             alertId: "DAI-31",
-    //             severity: FindingSeverity.Info,
-    //             type: FindingType.Info,
-    //             metadata: {
-    //                 from: mockInstTransferEvent.args.from,
-    //                 to: mockInstTransferEvent.args.to,
-    //                 amount: formattedAmount,
-    //             },
-    //         }),
-    //     ]);
-    //     expect(mockTxEvent.filterLog).toHaveBeenCalledTimes(1);
-    //     expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
-    //         TRANSFER_EVENT,
-    //         DAI_ADDRESS
-    //     );
-    // });
 });
