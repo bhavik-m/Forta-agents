@@ -82,7 +82,6 @@ describe("large transfer event agent", () => {
         from: "0x123",
         to: "0xabc",
         value: amount.multipliedBy(10 ** INST_DECIMALS),
-
       },
     };
     mockTxEvent.filterLog.mockReturnValueOnce([mockInstTransferEvent]);

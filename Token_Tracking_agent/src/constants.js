@@ -1,5 +1,6 @@
 
 // const Web3 = require("web3");
+// import keccak256 from 'keccak256'
 
 
 const DAI_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
@@ -18,8 +19,8 @@ function token(name, address, decimals) {
 }
 
 var tokens = [
-  new token("DAI", DAI_ADDRESS, DAI_DECIMALS),
-  new token("USDC", USDC_ADDRESS, USDC_DECIMALS)
+  new token("USDC", USDC_ADDRESS, USDC_DECIMALS),
+  new token("DAI", DAI_ADDRESS, DAI_DECIMALS)
 ]
 
 
@@ -27,5 +28,7 @@ module.exports = {
   tokens,
   TRANSFER_EVENT,
   DAI_ADDRESS,
-  DAI_DECIMALS
+  DAI_DECIMALS,
+  USDC_ADDRESS,
+  USDC_DECIMALS
 };
