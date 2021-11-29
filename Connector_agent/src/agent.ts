@@ -6,6 +6,7 @@ import {
   FindingSeverity,
   FindingType,
 } from 'forta-agent'
+
 import { INSTADAPP_CONNECTOR_ADDRESS, Sigs } from './utils'
 
 const handleTransaction: HandleTransaction = async (
@@ -13,11 +14,16 @@ const handleTransaction: HandleTransaction = async (
 ) => {
   const findings: Finding[] = []
 
+  // iterating through the event signatures
   for (let sig in Sigs) {
+
+    // filtering the transaction events 
     const logs = txEvent.filterEvent(Sigs[sig], INSTADAPP_CONNECTOR_ADDRESS)
 
-    if (!logs.length) continue
+    // if no events found then continue
+    if (!logs.length) continue;
 
+    // failed transaction 
     if (!txEvent.status) {
       findings.push(
         Finding.fromObject({
@@ -29,7 +35,9 @@ const handleTransaction: HandleTransaction = async (
           severity: FindingSeverity.High,
         })
       )
-    } else {
+    }
+    // successful transaction
+    else {
       findings.push(
         Finding.fromObject({
           name: 'INSTADAPP CONNECTOR EVENT',
