@@ -2,28 +2,26 @@
 const BigNumber = require("bignumber.js");
 const { ethers } = require("ethers");
 const abi = require("./abi.json");
-const Web3 = require('web3');
 const { Finding, FindingSeverity, FindingType, getEthersProvider } = require("forta-agent");
 const {
   tokens,
-  DAI_ADDRESS,
-  DAI_DECIMALS,
-  USDC_ADDRESS,
-  USDC_DECIMALS,
   TRANSFER_EVENT,
 } = require("./constants");
 
 const ethersProvider = getEthersProvider();
 
+
+// making instance of contract
 const instaList = new ethers.Contract("0x4c8a1BEb8a87765788946D6B19C6C6355194AbEb", abi, ethersProvider);
 
 
-const AMOUNT_THRESHOLD = "1";
+const AMOUNT_THRESHOLD = "1000000"; //100k
 
 function provideHandleTransaction(amountThreshold) {
   return async function handleTransaction(txEvent) {
-    const findings = [];
 
+
+    const findings = [];
 
     for (let token in tokens) {
 
@@ -32,9 +30,11 @@ function provideHandleTransaction(amountThreshold) {
         tokens[token].address
       );
 
+      // No transfer event found
       if (tokenTransferEvents.length == 0) {
         continue;
       }
+
 
       for (const tokenTransfer of tokenTransferEvents) {
 
@@ -47,6 +47,7 @@ function provideHandleTransaction(amountThreshold) {
         const from_account_id = from_account.toNumber();
         const to_account_id = to_account.toNumber();
 
+        // Not a dsa address if account_id is 0
         if (from_account_id == 0 && to_account_id == 0) {
           continue;
         }
@@ -59,6 +60,7 @@ function provideHandleTransaction(amountThreshold) {
         if (amount.isLessThan(amountThreshold)) return findings;
 
         const formattedAmount = amount.toFixed(2);
+
         findings.push(
           Finding.fromObject({
             name: `Large ${tokens[token].name} Transfer`,

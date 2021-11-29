@@ -6,13 +6,11 @@ const {
   TRANSFER_EVENT,
 } = require("./constants");
 
-const AMOUNT_THRESHOLD = "1000000"; // 1 million
+const AMOUNT_THRESHOLD = "100000"; // 1 million
 
 function provideHandleTransaction(amountThreshold) {
   return async function handleTransaction(txEvent) {
     const findings = [];
-
-    // console.log(txEvent.from)
 
     // filter the transaction logs for INST Transfer events
     const InstTransferEvents = txEvent.filterLog(
@@ -20,10 +18,10 @@ function provideHandleTransaction(amountThreshold) {
       INST_ADDRESS
     );
 
-    // fire alerts for transfers of large amounts
-    InstTransferEvents.forEach((InstTransfer) => {
-      // shift decimal places of transfer amount
 
+    InstTransferEvents.forEach((InstTransfer) => {
+
+      // shift decimal places of transfer amount
       const amount = new BigNumber(
         InstTransfer.args.value.toString()
       ).dividedBy(10 ** INST_DECIMALS)
