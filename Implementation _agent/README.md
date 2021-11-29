@@ -2,9 +2,10 @@
 
 ## Description
 
-Track these 3 events : add, remove & setDefault.
+Track these 3 proposal events : add, remove & setDefault.
 
-## Supported Chains
+Agent reports two type of findings;
 
-- Ethereum
+1. Successed Transactions: Successful transactions
+2. Failed Transactions: Failed transactions
 

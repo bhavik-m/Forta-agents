@@ -4,7 +4,8 @@
 
 Track these 3 events : added, update & removed.
 
-## Supported Chains
+Agent reports two type of findings;
 
-- Ethereum
+1. Successed Transactions: Successful transactions
+2. Failed Transactions: Failed transactions
 
