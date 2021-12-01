@@ -39,14 +39,14 @@ describe("large transfer event agent", () => {
     it("returns empty findings if there are DAI large transfer events but no dsa address is involved ", async () => {
         const amount = new BigNumber("1001");
         const formattedAmount = amount.toFixed(2);
-        const mockInstTransferEvent = {
+        const mockDaiTransferEvent = {
             args: {
                 from: "0x80f36f504c63b7663cebcdecb2ae7620a1fcb6e1",
                 to: "0x6b175474e89094c44da98b954eedeac495271d0f",
                 value: amount.multipliedBy(10 ** DAI_DECIMALS),
             },
         };
-        mockTxEvent.filterLog.mockReturnValue([mockInstTransferEvent]);
+        mockTxEvent.filterLog.mockReturnValue([mockDaiTransferEvent]);
 
         const findings = await handleTransaction(mockTxEvent);
 
@@ -56,14 +56,14 @@ describe("large transfer event agent", () => {
     it("returns empty findings if there are USDC large transfer events but no dsa address is involved ", async () => {
         const amount = new BigNumber("1001");
         const formattedAmount = amount.toFixed(2);
-        const mockInstTransferEvent = {
+        const mockUsdcTransferEvent = {
             args: {
                 from: "0x80f36f504c63b7663cebcdecb2ae7620a1fcb6e1",
                 to: "0x6b175474e89094c44da98b954eedeac495271d0f",
                 value: amount.multipliedBy(10 ** USDC_DECIMALS),
             },
         };
-        mockTxEvent.filterLog.mockReturnValue([mockInstTransferEvent]);
+        mockTxEvent.filterLog.mockReturnValue([mockUsdcTransferEvent]);
 
         const findings = await handleTransaction(mockTxEvent);
 
