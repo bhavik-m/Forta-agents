@@ -1,4 +1,3 @@
-
 const BigNumber = require("bignumber.js");
 const { Finding, FindingSeverity, FindingType } = require("forta-agent");
 const { provideHandleTransaction } = require("./agent");
@@ -36,7 +35,7 @@ describe("large transfer event agent", () => {
         expect(findings).toStrictEqual([]);
     });
 
-    it("returns empty findings if there are DAI large transfer events but no dsa address is involved ", async () => {
+    it("returns empty findings if there are large token transfer events but no dsa address is involved", async () => {
         const amount = new BigNumber("1001");
         const formattedAmount = amount.toFixed(2);
         const mockDaiTransferEvent = {
@@ -46,43 +45,31 @@ describe("large transfer event agent", () => {
                 value: amount.multipliedBy(10 ** DAI_DECIMALS),
             },
         };
-        mockTxEvent.filterLog.mockReturnValue([mockDaiTransferEvent]);
+        mockTxEvent.filterLog.mockReturnValueOnce([mockDaiTransferEvent]);
+        mockTxEvent.filterLog.mockReturnValueOnce([]);
 
         const findings = await handleTransaction(mockTxEvent);
 
         expect(findings).toStrictEqual([]);
+        expect(mockTxEvent.filterLog).toHaveBeenCalledWith(
+            TRANSFER_EVENT,
+            DAI_ADDRESS
+        );
     });
 
-    it("returns empty findings if there are USDC large transfer events but no dsa address is involved ", async () => {
-        const amount = new BigNumber("1001");
-        const formattedAmount = amount.toFixed(2);
-        const mockUsdcTransferEvent = {
-            args: {
-                from: "0x80f36f504c63b7663cebcdecb2ae7620a1fcb6e1",
-                to: "0x6b175474e89094c44da98b954eedeac495271d0f",
-                value: amount.multipliedBy(10 ** USDC_DECIMALS),
-            },
-        };
-        mockTxEvent.filterLog.mockReturnValue([mockUsdcTransferEvent]);
-
-        const findings = await handleTransaction(mockTxEvent);
-
-        expect(findings).toStrictEqual([]);
-    });
-
-
-    it("returns findings if there are dai large transfer events involving dsa address", async () => {
+    it("returns findings if there are large token transfer events involving dsa address", async () => {
 
         const amount = new BigNumber("1001");
         const formattedAmount = amount.toFixed(2);
-        const mockInstTransferEvent = {
+        const mockDaiTransferEvent = {
             args: {
                 from: "0xf151ed2caedbda83c17ae39d6990d92909fcf529", // dsa
                 to: "0x4f58985b75eec8f14c536878a19eadf4a1960d6c",
                 value: amount.multipliedBy(10 ** DAI_DECIMALS),
             },
         };
-        mockTxEvent.filterLog.mockReturnValue([mockInstTransferEvent]);
+        mockTxEvent.filterLog.mockReturnValueOnce([mockDaiTransferEvent]);
+        mockTxEvent.filterLog.mockReturnValueOnce([]);
 
         const findings = await handleTransaction(mockTxEvent);
 
@@ -94,11 +81,13 @@ describe("large transfer event agent", () => {
                 severity: FindingSeverity.Info,
                 type: FindingType.Info,
                 metadata: {
-                    from: mockInstTransferEvent.args.from,
-                    to: mockInstTransferEvent.args.to,
+                    from: mockDaiTransferEvent.args.from,
+                    to: mockDaiTransferEvent.args.to,
                     amount: formattedAmount,
                 },
             }),
         ]);
+
     });
+
 });
